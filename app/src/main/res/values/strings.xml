@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="email">enter your email</string>
+    <string name="login">enter your login</string>
+    <string name="password">enter your password</string>
+    <string name="sing_in">sing in?</string>
+    <string name="sing_up">sing up?</string>
+    <string name="registration">registration</string>
+    <string name="Login">login</string>
+    <string name="sing_inn">sing in</string>
+    <string name="sing_upp">sing up</string>
+    <string name="inputError">fill in the fields</string>
+    <string name="confirmPassword">confirm Password</string>
+    <string name="dont_match">passwords don\'t match</string>
+    <string name="no_connection">No internet connection</string>
+    <string name="check">Check your internet connection and try again</string>
+    <string name="support">If the problem persists, contact customer support:mail@okko.tv or call +8(800)700-55-33 (Russia) for free</string>
+    <string name="try_again">Try again</string>
+    <string name="forgot">Forgot your password?</string>
+    <string name="registration_success">registration was successful</string>
+    <string name="busy1">this email is already busy, this login is already busy</string>
+    <string name="busy2">such login or email is busy</string>
+    <string name="login_success">login was successful</string>
+    <string name="login_error">username or password is not correct</string>
+    <string name="forgot_email">enter your existing email address so we can send you a password recovery code</string>
+    <string name="text">an email with a code has been sent to your </string>
+    <string name="text2">email address</string>
+    <string name="send_email">send email</string>
+    <string name="enter_code">enter code</string>
+    <string name="enter_email">enter email!</string>
+    <string name="notCorrectCode">code is not correct</string>
+    <string name="comUp">come up with a new password</string>
+    <string name="changePass">Change Password</string>
+    <string name="changePassSuccess">Password is changed</string>
+    <string name="error">error</string>
+    <string name="password_was_change">password was changed </string>
+    <string name="symbolCheck">please don`t use symbol &amp; = , &lt; &gt; ` . "spacebar"</string>
+    <string name="sizePassCheck">password less than 8 symbols</string>
+    <string name="loginSizeCheck">login less than 4 symbols</string>
+    <string name="rememberMe">remember me</string>
+
+
+</resources>
