@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -50,10 +51,20 @@ public class forgot_password_part2 extends AppCompatActivity {
                 String url = "http://co33229.tmweb.ru/";
 
                 if ( enterPassPart2.getText().length()==0||confirmPassPart2.getText().length()==0) {
-                    helper.setText(getResources().getString(R.string.inputError));
-                }
+                    Toast errortext = Toast.makeText(getApplicationContext(),getResources().getString(R.string.inputError)
+                            , Toast.LENGTH_SHORT);
+                    errortext.show();}
+
                 else if (!enterPassPart2.getText().toString().equals(confirmPassPart2.getText().toString())){
-                    helper.setText((getResources().getString(R.string.dont_match)));
+                    Toast errortext = Toast.makeText(getApplicationContext(),getResources().getString(R.string.dont_match)
+                            , Toast.LENGTH_SHORT);
+                    errortext.show();}
+
+                    else if (enterPassPart2.getText().length()>30 ) {
+                        Toast errortext = Toast.makeText(getApplicationContext(),getResources().getString(R.string.passSizeLong)
+                                , Toast.LENGTH_SHORT);
+                        errortext.show();
+
                 }
                 else {
                     StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
@@ -63,7 +74,10 @@ public class forgot_password_part2 extends AppCompatActivity {
                                     // Display the first 500 characters of the response string.
 
                                     if(response.equals("0")) {
-                                        helper.setText(getResources().getString(R.string.password_was_change));
+
+                                        Toast errortext = Toast.makeText(getApplicationContext(),getResources().getString(R.string.password_was_change)
+                                                , Toast.LENGTH_SHORT);
+                                        errortext.show();
 
                                         Intent intent = new Intent(forgot_password_part2.this, login_window.class);
                                         startActivity(intent);

@@ -18,6 +18,7 @@ import com.android.volley.toolbox.Volley;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class forgot_password_part1 extends AppCompatActivity {
 int i=1;
@@ -83,8 +84,9 @@ int i=1;
                         paramV.put("proverka", String.valueOf(proverka));
                         paramV.put("i", String.valueOf(i));
                         paramV.put("code", code.getText().toString());
-
+                        i=1;
                         return paramV;
+
                     }
                 };
 

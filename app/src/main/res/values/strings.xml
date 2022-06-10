@@ -38,6 +38,9 @@
     <string name="sizePassCheck">password less than 8 symbols</string>
     <string name="loginSizeCheck">login less than 4 symbols</string>
     <string name="rememberMe">remember me</string>
+    <string name="loginSizeLong">the login size is too large</string>
+    <string name="passSizeLong">the password size is too large</string>
+    <string name="emailSizeLong">the email size is too large</string>
 
 
 </resources>

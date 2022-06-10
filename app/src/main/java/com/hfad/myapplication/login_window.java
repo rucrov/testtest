@@ -3,12 +3,15 @@ package com.hfad.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -20,25 +23,47 @@ import com.android.volley.toolbox.Volley;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class login_window extends AppCompatActivity {
+    private static final String SAVED_LOGIN = "saved_login";
+    private static final String SAVED_PASS = "saved_pass";
+    SharedPreferences saveLogin,savePassword;
+
+
+    TextView sing_up,loginLogin,passwordPassword,forgot_your_password,textView;
+    Button button_login;
+    CheckBox checkBox;
+    int proverka=1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_window);
-        final TextView textView = (TextView) findViewById(R.id.text);
-        TextView sing_up,loginLogin,passwordPassword,forgot_your_password;
-        Button button_login;
+textView=findViewById(R.id.text);
         sing_up=findViewById(R.id.sing_up);
         loginLogin=findViewById(R.id.loginLogin);
         passwordPassword=findViewById(R.id.passwordPassword);
         button_login=findViewById(R.id.button_login);
         forgot_your_password=findViewById(R.id.forgot_your_password);
-        int proverka=1;
+        checkBox=findViewById(R.id.checkBox);
+
+
         if (Build.VERSION.SDK_INT>= Build.VERSION_CODES.LOLLIPOP){
             getWindow().setNavigationBarColor(getResources().getColor(R.color.black));
             getWindow().setStatusBarColor(getResources().getColor(R.color.black));
         }
+
+
+
+
+
+
+
+
+
         sing_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,6 +91,9 @@ public class login_window extends AppCompatActivity {
                             public void onResponse(String response) {
                                 if(response.equals("0")){
                                     textView.setText(getResources().getString(R.string.login_success));
+
+                                    if (checkBox.isChecked()){save_login_password();qwert();}
+
                                 }
                                 else if (response.equals("1"))
                                 { textView.setText(getResources().getString(R.string.login_error));}
@@ -101,5 +129,25 @@ public class login_window extends AppCompatActivity {
         });
 
 
+    }
+    private void save_login_password(){
+
+        saveLogin = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor ed = saveLogin.edit();
+        ed.putString(SAVED_LOGIN, loginLogin.getText().toString());
+        ed.commit();
+
+        savePassword = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor et = savePassword.edit();
+        et.putString(SAVED_PASS, passwordPassword.getText().toString());
+        et.commit();
+
+
+
+    }
+    private void qwert(){
+        String savedText=saveLogin.getString(SAVED_LOGIN,"");
+
+        textView.setText(savedText);
     }
 }

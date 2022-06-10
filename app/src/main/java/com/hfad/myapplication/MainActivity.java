@@ -2,7 +2,10 @@ package com.hfad.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -28,7 +31,7 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     String[] symbol = new String[]{"&","=","<",">",",","`","."};
-    int i=0,q=0;
+    int i=0,q=0, w=0;
 private int simbolCheck(String text){
 for (i=0;i<6;i++){
     if (text.contains(symbol[i])==true){q++;}
@@ -38,6 +41,15 @@ for (i=0;i<6;i++){
 return q;
 }
 
+private  int  connect_test(int param) {
+param=0;
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if (networkInfo!=null && networkInfo.isConnected()==true) { param++;
+
+
+        }
+    return param ;}
 
 
     @Override
@@ -86,12 +98,11 @@ return q;
 
                     String url = "http://co33229.tmweb.ru/";
 
-                    if (email.getText().length()==0 || login.getText().length()==0||password.getText().length()==0||confirmPassword.getText().length()==0) {
-                        Toast  errortext = Toast.makeText(getApplicationContext(),getResources().getString(R.string.inputError)
-                                , Toast.LENGTH_SHORT);
-                        errortext.show();
-                    }
-                        else if (!password.getText().toString().equals(confirmPassword.getText().toString())){
+//                    if (connect_test(w)>-1){
+//                            Intent intent = new Intent(MainActivity.this, check_internet_connection.class);
+//                            startActivity(intent);
+//                    }
+                        if (!password.getText().toString().equals(confirmPassword.getText().toString())){
                         Toast  errortext = Toast.makeText(getApplicationContext(),getResources().getString(R.string.dont_match)
                                 , Toast.LENGTH_SHORT);
                         errortext.show();
@@ -114,6 +125,27 @@ return q;
                         Toast  errortext = Toast.makeText(getApplicationContext(),getResources().getString(R.string.loginSizeCheck)
                                 , Toast.LENGTH_SHORT);
                         errortext.show();}
+
+                    else if (login.getText().length()>30){
+                        Toast  errortext = Toast.makeText(getApplicationContext(),getResources().getString(R.string.loginSizeLong)
+                                , Toast.LENGTH_SHORT);
+                        errortext.show();}
+                    else if (password.getText().length()>30){
+                        Toast  errortext = Toast.makeText(getApplicationContext(),getResources().getString(R.string.passSizeLong)
+                                , Toast.LENGTH_SHORT);
+                        errortext.show();}
+                    else if (email.getText().length()>64){
+                        Toast  errortext = Toast.makeText(getApplicationContext(),getResources().getString(R.string.emailSizeLong)
+                                , Toast.LENGTH_SHORT);
+                        errortext.show();}
+
+                   else if (email.getText().length()==0 || login.getText().length()==0||password.getText().length()==0||confirmPassword.getText().length()==0) {
+                        Toast  errortext = Toast.makeText(getApplicationContext(),getResources().getString(R.string.inputError)
+                                , Toast.LENGTH_SHORT);
+                        errortext.show();
+
+                    }
+
 
 
                     else {
