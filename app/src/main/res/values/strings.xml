@@ -41,6 +41,8 @@
     <string name="loginSizeLong">the login size is too large</string>
     <string name="passSizeLong">the password size is too large</string>
     <string name="emailSizeLong">the email size is too large</string>
+    <string name="message">if you haven\'t found your message, look it up in spam or try again</string>
+
 
 
 </resources>
