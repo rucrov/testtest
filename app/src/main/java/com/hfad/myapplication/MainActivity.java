@@ -10,7 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
-import android.view.Window;
+
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -69,7 +69,7 @@ param=0;
         back=findViewById(R.id.back);
         errorText=findViewById(R.id.errorText);
         confirmPassword=findViewById(R.id.confirmPassword);
-        codeRegistration= findViewById(R.id.codeRegistration);
+
         int proverka=0,proverkaCode=0;
 
         if (Build.VERSION.SDK_INT>= Build.VERSION_CODES.LOLLIPOP){
@@ -78,7 +78,7 @@ param=0;
         }
 
 
-        codeRegistration.setVisibility(View.INVISIBLE);
+
 
 
 
@@ -156,7 +156,7 @@ param=0;
                                     // Display the first 500 characters of the response string.
 
                                     if(response.equals("0")){
-                                        codeRegistration.setVisibility(View.VISIBLE);
+
                                     textView.setText(getResources().getString(R.string.registration_success));
                                     }
                                         else if (response.equals("1"))

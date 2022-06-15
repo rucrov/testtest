@@ -9,6 +9,7 @@ import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -22,16 +23,17 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class forgot_password_part1 extends AppCompatActivity {
-    int i = 1;
+    int i = 1 ,counter1=0 ;
+    int check = 0;
+    int proverka = 2;
+    int timerCheck=1;
     TextView textForgotPassword, enterYourEmail, code, textView4, textView5,textView6;
     Button sendEmail, buttonRestrat;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fogot_password_part1);
-        int check = 0;
-        int proverka = 2;
-        int timerCheck=1;
+        counter1=0;
 
 
 
@@ -41,7 +43,7 @@ public class forgot_password_part1 extends AppCompatActivity {
         code = findViewById(R.id.code);
         textView4 = findViewById(R.id.textView4);
         textForgotPassword.setText(getResources().getString(R.string.forgot_email));
-        RequestQueue queue = Volley.newRequestQueue(this);
+
         buttonRestrat = findViewById(R.id.button3);
         textView5 = findViewById(R.id.textView5);
         textView6 =findViewById(R.id.textView6);
@@ -62,50 +64,13 @@ public class forgot_password_part1 extends AppCompatActivity {
                 } else {
                     textForgotPassword.setText(getResources().getString(R.string.text) + " " + enterYourEmail.getText().toString() + " " + getResources().getString(R.string.text2));
                     {
+                       if (counter1==0) {sendData(); counter1++; sendEmail.setText(getResources().getString(R.string.send_code));timer();}
+                        if (code.getText().length()>0) {sendData();}
+                        else if (code.getText().length()==0&&counter1>1) {Toast  errortext = Toast.makeText(getApplicationContext(),getResources().getString(R.string.enter_code)
+                                , Toast.LENGTH_SHORT);
 
-                        String url = "http://co33229.tmweb.ru/";
-                        buttonRestrat.setVisibility(View.VISIBLE);
-                        code.setVisibility(View.VISIBLE);
-                        textView5.setVisibility(View.VISIBLE);
-                        i++;
-
-                        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                                new Response.Listener<String>() {
-                                    @Override
-                                    public void onResponse(String response) {
-
-                                        if (response.equals("0")) {
-                                            Intent intent = new Intent(forgot_password_part1.this, forgot_password_part2.class);
-                                            intent.putExtra("email", enterYourEmail.getText().toString());
-                                            startActivity(intent);
-                                            finish();
-                                        } else if (response.equals("1")) {
-                                            textView4.setText(getResources().getString(R.string.notCorrectCode));
-                                        } else textView4.setText(response);
-
-
-                                    }
-                                }, new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                textView4.setText("That didn't work!");
-                            }
-                        }) {
-                            protected Map<String, String> getParams() {
-                                Map<String, String> paramV = new HashMap<>();
-
-                                paramV.put("email", enterYourEmail.getText().toString());
-                                paramV.put("proverka", String.valueOf(proverka));
-                                paramV.put("i", String.valueOf(i));
-                                paramV.put("code", code.getText().toString());
-                                i = 1;
-                                return paramV;
-
-                            }
-                        };
-
-//
-                        queue.add(stringRequest);
+                        errortext.show();}
+                        counter1++;
                     }
 
 
@@ -121,6 +86,7 @@ public class forgot_password_part1 extends AppCompatActivity {
         buttonRestrat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                sendData();
                 timer();
 
             }
@@ -133,6 +99,7 @@ public class forgot_password_part1 extends AppCompatActivity {
     public void timer() {
         new CountDownTimer(90000,1000) {
             @Override
+
             public void onTick(long l) {
                 textView6.setText(Long.toString(l/1000));
                 buttonRestrat.setClickable(false);
@@ -149,4 +116,52 @@ public class forgot_password_part1 extends AppCompatActivity {
 
 
     }
+
+    public String sendData(){
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "http://co33229.tmweb.ru/";
+        buttonRestrat.setVisibility(View.VISIBLE);
+        code.setVisibility(View.VISIBLE);
+        textView5.setVisibility(View.VISIBLE);
+        i++;
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        if (response.equals("0")) {
+                            Intent intent = new Intent(forgot_password_part1.this, forgot_password_part2.class);
+                            intent.putExtra("email", enterYourEmail.getText().toString());
+                            startActivity(intent);
+                            finish();
+                        } else if (response.equals("1")) {
+                            textView4.setText(getResources().getString(R.string.notCorrectCode));
+                        } else textView4.setText(response);
+
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                textView4.setText("That didn't work!");
+            }
+        }) {
+            protected Map<String, String> getParams() {
+                Map<String, String> paramV = new HashMap<>();
+
+                paramV.put("email", enterYourEmail.getText().toString());
+                paramV.put("proverka", String.valueOf(proverka));
+                paramV.put("i", String.valueOf(i));
+                paramV.put("code", code.getText().toString());
+                i = 1;
+                return paramV;
+
+            }
+        };
+
+//
+        queue.add(stringRequest);
+
+    return "0";}
 }
