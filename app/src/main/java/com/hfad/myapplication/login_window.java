@@ -20,6 +20,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -89,10 +92,16 @@ textView=findViewById(R.id.text);
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
+//                                try {
+//                                    JSONObject jsonResponse  = new JSONObject(response);
+//                                } catch (JSONException e) {
+//                                    e.printStackTrace();
+//                                }
+//                                JSONObject userInfo
                                 if(response.equals("0")){
                                     textView.setText(getResources().getString(R.string.login_success));
 
-                                    if (checkBox.isChecked()){save_login_password();qwert();}
+                                    if (checkBox.isChecked()){save_login_password(response);qwert();}
 
                                 }
                                 else if (response.equals("1"))
@@ -130,16 +139,16 @@ textView=findViewById(R.id.text);
 
 
     }
-    private void save_login_password(){
+    private void save_login_password( String qwe){
 
         saveLogin = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor ed = saveLogin.edit();
-        ed.putString(SAVED_LOGIN, loginLogin.getText().toString());
+        ed.putString(SAVED_LOGIN, qwe);
         ed.commit();
 
         savePassword = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor et = savePassword.edit();
-        et.putString(SAVED_PASS, passwordPassword.getText().toString());
+        et.putString(SAVED_PASS, qwe);
         et.commit();
 
 
